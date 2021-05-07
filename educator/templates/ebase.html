@@ -139,12 +139,12 @@ span {
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 0.9 em;
     display: block;
 }
 
 #sidebar ul li a:hover {
-    color: #3BD16F;
+    color: #2f3338;
     background: #fff;
 }
 
@@ -155,7 +155,7 @@ span {
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #3BD16F;
+    background: #2f3338;
 }
 
 a[data-toggle="collapse"] {
@@ -170,10 +170,10 @@ a[data-toggle="collapse"] {
     transform: translateY(-50%);
 }
 
-ul ul a {
+#sidebar ul ul a{
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #3BD16F;
+    background: #2f3338;
 }
 
 ul.CTAs {
@@ -262,6 +262,7 @@ a.article:hover {
         display: none;
     }
 }
+
     {% block style %}{% endblock %}
 </style>
 <script>
@@ -351,12 +352,12 @@ a.article:hover {
         <!-- Page Content  -->
         <div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        <span>Toggle Sidebar</span>
+                    <button type="button" id="sidebarCollapse" class="btn btn-success">
+                        <i class="fas fa-toggle-on" id="buttontog"></i>
+                        <span></span>
                     </button>
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
@@ -364,17 +365,11 @@ a.article:hover {
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Page</a>
+                            <li class="nav-item">
+                                <a class="nav-link active">Hello, {{user.first_name}} </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Page</a>
+                                <a class="nav-link" href="/educator/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -396,6 +391,7 @@ a.article:hover {
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
+                $('#buttontog').toggleClass('fa-toggle-on fa-toggle-off');
             });
         });
     </script>
