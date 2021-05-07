@@ -96,6 +96,7 @@ $(document).ready(function(){
 {% endblock %}
 {% block content %}
 <form action="login" method="post">
+  {% csrf_token %}
   <h1>
     Login
   </h1>
@@ -115,4 +116,7 @@ $(document).ready(function(){
   </label>
   <button type="submit">Login</button>
 </form>
+    {% for message in messages %}
+    <h3>{{message}}</h3>
+    {% endfor %}
 {% endblock %}
