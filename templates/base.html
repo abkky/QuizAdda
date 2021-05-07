@@ -7,7 +7,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
-        {% block style %}{% endblock %}
+    .btn-outline-success, .btn-success{
+        color:#3BD16F;
+        border-color:#3BD16F;
+    }
+       {% block style %}{% endblock %}
     </style>
     <script>
         {% block script %}{% endblock %}
@@ -28,11 +32,7 @@
           <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/educator">educator</a>
-        </li>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" href="/educator/signup">signup</a>
+          <a class="nav-link" href="/educator" aria-current="page">educator</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,10 +45,8 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
+        <a class="btn btn-outline-success" href="/educator/signup" style="border:none;margin-right:5px;">Signup</a>
         <a class="btn btn-outline-success" href="/educator/login">Login</a>
 
     </div>
