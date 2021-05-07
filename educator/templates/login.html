@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Signup{% endblock %}
+{% block title %}Login{% endblock %}
 {% block style %}
 
 form {
@@ -95,31 +95,24 @@ $(document).ready(function(){
 });
 {% endblock %}
 {% block content %}
-<form action="signup" method="post">
+<form action="login" method="post">
   <h1>
-    Signup
+    Login
   </h1>
  <label>
-    <p class="label-txt">ENTER YOUR EMAIL</p>
-    <input type="text" class="input">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
-  <label>
-    <p class="label-txt">ENTER YOUR NAME</p>
-    <input type="text" class="input">
+    <p class="label-txt">ENTER YOUR USERNAME</p>
+    <input type="text" class="input" name="username">
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
   <label>
     <p class="label-txt">ENTER YOUR PASSWORD</p>
-    <input type="text" class="input">
+    <input type="password" class="input" name="password">
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
-  <button type="submit">submit</button>
+  <button type="submit">Login</button>
 </form>
 {% endblock %}

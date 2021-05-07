@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Signup{% endblock %}
 {% block style %}
 
 form {
@@ -95,24 +95,50 @@ $(document).ready(function(){
 });
 {% endblock %}
 {% block content %}
-<form action="login" method="post">
+<form action="signup" method="POST">
+  {% csrf_token %}
   <h1>
-    Login
+    Join as an Educator
   </h1>
+  <label>
+    <p class="label-txt">YOUR FIRST NAME</p>
+    <input type="text" class="input" name="firstname">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+   <label>
+    <p class="label-txt">YOUR LAST NAME</p>
+    <input type="text" class="input" name="lastname">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
  <label>
-    <p class="label-txt">ENTER YOUR EMAIL</p>
-    <input type="text" class="input">
+    <p class="label-txt">YOUR EMAIL</p>
+    <input type="emnail" class="input" name="email">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+   <label>
+    <p class="label-txt">YOUR USERNAME</p>
+    <input type="text" class="input" name="username">
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
   <label>
     <p class="label-txt">ENTER YOUR PASSWORD</p>
-    <input type="text" class="input">
+    <input type="text" class="input" name="password">
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
-  <button type="submit">Login</button>
+  <button type="submit">Register</button>
 </form>
+
+    {% for message in messages %}
+    <h3>{{message}}</h3>
+    {% endfor %}
 {% endblock %}
