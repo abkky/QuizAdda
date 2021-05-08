@@ -45,3 +45,5 @@ def signup(request):
 def logout(request):
     auth.logout(request)
     return redirect("/")
+def createquiz(request):
+    return render(request,"createquiz.html")
