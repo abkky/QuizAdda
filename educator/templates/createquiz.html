@@ -7,6 +7,45 @@
 {% block content %}
 <h2 class="text-center">Create Quiz</h2>
 <form action="createquiz" method="POST">
+    <div class="form-group">
+    <label for="exampleInputEmail1">Enter Your Question</label>
+    <input type="text" class="form-control" placeholder="Enter Your name" name="question">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Select No.of option</label>
+        <select class="form-control" id="numofquestion">
+          <option>--Select--</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+    </div>
+    <div id="numofoptions">
 
+    </div><br/>
+    <div id="correctoption">
+      
+    </div>
 </form>
+<script>
+  $("#numofquestion").change(function() {
+  var value = +$(this).val();
+  if(value>1){
+      var nr = 1;
+    var elem = $('#numofoptions').empty();
+    var elem1 = $('#correctoption').empty();
+      elem.append($('<label>Enter Options</label>'));
+      elem1.append($('<label>Choose Correct option</label>'));
+    while (nr <= value) {
+      elem.append($('<input>',{name : "qp"+nr,id : "qp"+nr,class:"form-control",placeholder:"Enter option "+nr}));
+      elem.append($('<br/>'));
+      elem1.append($('<input>',{name : "qp"+nr,id : "qp"+nr,class:"form-control",placeholder:"Enter option "+nr}));
+      elem1.append($('<br/>'));
+      x="#qp"+nr;
+      $(x).prop('type', 'text');
+      nr++;
+    }}
+});
+</script>
 {% endblock %}

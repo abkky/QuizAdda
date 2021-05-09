@@ -74,11 +74,7 @@ def userprofile(request):
     return render(request,"userprofile.html")
 
 def updatepassword(request):
-  if request.method == 'POST':
-        rename=request.POST["username"]
-        email=request.POST["uemail"]
-        firstname=request.POST["ufirstname"]
-        lastname=request.POST["ulastname"]        
+  if request.method == 'POST':    
         uid=request.POST["uid"]
         npassword=request.POST["npassword"]
         cpassword=request.POST["cpassword"]
@@ -88,7 +84,8 @@ def updatepassword(request):
             messages.info(request,"new password not match")
             return redirect("updatepassword")
         else:
-            user= User(id=uid,username=rename,password=cpassword,email=email,first_name=firstname,last_name=lastname)
+            user= User.objects.get(id=uid)
+            user.set_password(npassword)
             user.save()
             messages.info(request,"Password saved")
             return redirect("/educator/updatepassword")
