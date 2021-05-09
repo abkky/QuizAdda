@@ -47,3 +47,51 @@ def logout(request):
     return redirect("/")
 def createquiz(request):
     return render(request,"createquiz.html")
+
+
+def updateprofile(request):
+  if request.method == 'POST':
+        rename=request.POST["rename"]
+        email=request.POST["uemail"]
+        firstname=request.POST["ufirstname"]
+        lastname=request.POST["ulastname"]        
+        uid=request.POST["uid"]
+        password=request.POST["upassword"]
+        if User.objects.filter(username=rename).exists():
+            messages.info(request,"Username is already taken")
+            return redirect("updateprofile")
+        elif User.objects.filter(email=email).exists():
+            messages.info(request,"Email already exist")
+            return redirect("updateprofile")
+        else:
+            user= User(id=uid,username=rename,password=password,email=email,first_name=firstname,last_name=lastname)
+            user.save()
+            return redirect("/educator/userprofile")
+  else:
+        return render(request,"updateprofile.html")
+    
+def userprofile(request):
+    return render(request,"userprofile.html")
+
+def updatepassword(request):
+  if request.method == 'POST':
+        rename=request.POST["username"]
+        email=request.POST["uemail"]
+        firstname=request.POST["ufirstname"]
+        lastname=request.POST["ulastname"]        
+        uid=request.POST["uid"]
+        npassword=request.POST["npassword"]
+        cpassword=request.POST["cpassword"]
+        
+       
+        if npassword!=cpassword:
+            messages.info(request,"new password not match")
+            return redirect("updatepassword")
+        else:
+            user= User(id=uid,username=rename,password=cpassword,email=email,first_name=firstname,last_name=lastname)
+            user.save()
+            messages.info(request,"Password saved")
+            return redirect("/educator/updatepassword")
+  else:
+        return render(request,"updatepassword.html")
+    
