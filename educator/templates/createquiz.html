@@ -38,12 +38,13 @@
       elem.append($('<label>Enter Options</label>'));
       elem1.append($('<label>Choose Correct option</label>'));
     while (nr <= value) {
-      elem.append($('<input>',{name : "qp"+nr,id : "qp"+nr,class:"form-control",placeholder:"Enter option "+nr}));
+      elem.append($('<input>',{name : "ov"+nr,id : "ov"+nr,class:"form-control",placeholder:"Enter option "+nr}));
+      elem.append($('<input>',{name : "co"+nr,id : "co"+nr,class:"form-check-input"}));
       elem.append($('<br/>'));
-      elem1.append($('<input>',{name : "qp"+nr,id : "qp"+nr,class:"form-control",placeholder:"Enter option "+nr}));
-      elem1.append($('<br/>'));
-      x="#qp"+nr;
+      x="#ov"+nr;
+      x="#co"+nr;
       $(x).prop('type', 'text');
+      $(x).prop('type', 'radio');
       nr++;
     }}
 });
