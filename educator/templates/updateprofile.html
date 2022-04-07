@@ -1,133 +1,56 @@
 {% extends "ebase.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Update Profile{% endblock %}
 {% block style %}
-
-form {
-  width: 60%;
-  margin: 60px auto;
-  background: #efefef;
-  padding: 60px 120px 80px 120px;
-  text-align: center;
-  -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
-  box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
+.form-control{
+  width:auto;
 }
-label {
-  display: block;
-  position: relative;
-  margin: 40px 0px;
-}
-.label-txt {
-  position: absolute;
-  top: -1.6em;
-  padding: 10px;
-  font-family: sans-serif;
-  font-size: .8em;
-  letter-spacing: 1px;
-  color: rgb(120,120,120);
-  transition: ease .3s;
-}
-.input {
-  width: 100%;
-  padding: 10px;
-  background: transparent;
-  border: none;
-  outline: none;
-}
-
-.line-box {
-  position: relative;
-  width: 100%;
-  height: 2px;
-  background: #BCBCBC;
-}
-
-.line {
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #8BC34A;
-  transition: ease .6s;
-}
-
-.input:focus + .line-box .line {
-  width: 100%;
-}
-
-.label-active {
-  top: -3em;
-}
-
-button {
-  display: inline-block;
-  padding: 12px 24px;
-  background: rgb(220,220,220);
-  font-weight: bold;
-  color: rgb(120,120,120);
-  border: none;
-  outline: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: ease .3s;
-}
-
-button:hover {
-  background: #8BC34A;
-  color: #ffffff;
-}
-
 {% endblock %}
 {% block script %}
-$(document).ready(function(){
-
-  $('.input').focus(function(){
-    $(this).parent().find(".label-txt").addClass('label-active');
-  });
-
-  $(".input").focusout(function(){
-    if ($(this).val() == '') {
-      $(this).parent().find(".label-txt").removeClass('label-active');
-    };
-  });
-
-});
 {% endblock %}
 {% block content %}
-<form action="updateprofile" method="post">
-  {% csrf_token %}
-  <h1>
-    Update Profile
-  </h1><br/>
- <label>
-    <p class="label-txt">Update Username</p>
-    <input type="text" class="input" name="rename">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
-
-  <label>
-    <p class="label-txt">Update Email</p>
-    <input type="text" class="input" name="uemail">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
-  <input type="hidden" name="uid" value={{user.id}}>
-  <input type="hidden" name="ufirstname" value={{user.first_name}}>
-  <input type="hidden" name="ulastname" value={{user.last_name}}>
-  
-  <input type="hidden" name="upassword" value={{user.password}}>
-
-
-<button type="submit">Update</button>
+<div class="col-md-10 offset-md-1">
+  <div class="ques-title text-center pb-3">
+    <h2 class="mb-2">Edit Profile</h2>
+  </div>
 </div>
-</center>
-  </form>
-   </div>
+<div class="card mb-3 m-3">
+  <div class="row">
+    <div class="col-sm-12 alert bg-dark text-light shadow"><h6 class="mb-0">Basic Info</h6></div>
+  </div>
+  <div class="card-body"> 
+       
+    <form action="updateprofile" method="post">
+      {% csrf_token %}
+      {% for message in messages %}
+  <div class="text-center alert-danger alert" id="errormsg">{{message}}</div>
+  {% endfor %}
+      <div class="row">
+        <div class="col-sm-3"><h6 class="mb-0">First Name</h6></div>
+        <div class="col-sm-9 text-secondary"><input type="text" class="form-control"  name="firstname" value="{{user.first_name}}" required placeholder="First Name"/></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3"><h6 class="mb-0">Last Name</h6></div>
+        <div class="col-sm-9 text-secondary"><input type="text" class="form-control" name="lastname" value="{{user.last_name}}" required placeholder="Last Name"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-3"><h6 class="mb-0">Username</h6></div>
+        <div class="col-sm-9 text-secondary">
+          <input type="text" class="form-control" name="username" id="id_username" value="{{user.username}}" required pattern="^\S+$" placeholder="Username">
+            <span id="msgjs"></span>
+        </div>
+      </div>
+      <hr />
+      <input type="submit" value="Update"  class="btn btn-success float-right"/>
+    </form>
+  </div>
+</div>
+
+
+ 
      {% for message in messages %}
     <h3>{{message}}</h3>
     {% endfor %}
+{% include "validationscript.html" %}
 {% endblock %}

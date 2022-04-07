@@ -1,379 +1,486 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!DOCTYPE html>
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <title>{% block title %}{% endblock %}</title>
-
+  <!-- Favicons -->
+  <link href="{{STATIC_PREFIX}}img/favicon.png" rel="icon">
+  <link href="{{STATIC_PREFIX}}img/apple-touch-icon.png" rel="apple-touch-icon">
     <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" >
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet">
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
+    <!--Font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
-<style>
-p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #999;
-}
+    <style>
+      p {
+          font-size: 1.1em;
+          font-weight: 400;
+          line-height: 1.7em;
+          color: #999;
+      }
 
-a,
-a:hover,
-a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
+      a,
+      a:hover,
+      a:focus {
+          color: inherit;
+          text-decoration: none;
+          transition: all 0.3s;
+      }
 
-.navbar {
-    padding: 15px 10px;
-    background: #fff;
-    border: none;
-    border-radius: 0;
-    margin-bottom: 40px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
+      .navbar {
+          padding: 15px 10px;
+          background: #fff;
+          border: none;
+          border-radius: 0;
+          box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      }
 
-.navbar-btn {
-    box-shadow: none;
-    outline: none !important;
-    border: none;
-}
+      .navbar-btn {
+          box-shadow: none;
+          outline: none !important;
+          border: none;
+      }
 
-.line {
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
-}
+      .line {
+          width: 100%;
+          height: 1px;
+          border-bottom: 1px dashed #ddd;
+          margin: 40px 0;
+      }
 
-i,
-span {
-    display: inline-block;
-}
+      i,
+      span {
+          display: inline-block;
+      }
 
-/* ---------------------------------------------------
-    SIDEBAR STYLE
------------------------------------------------------ */
+      /* ---------------------------------------------------
+          SIDEBAR STYLE
+      ----------------------------------------------------- */
 
-.wrapper {
-    display: flex;
-    align-items: stretch;
-}
+      .wrapper {
+          display: flex;
+          align-items: stretch;
+      }
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    background: #212529;
-    color: #fff;
-    transition: all 0.3s;
-}
+      #sidebar {
+          min-width: 250px;
+          max-width: 250px;
+          background: #212529;
+          color: #fff;
+          transition: all 0.3s;
+      }
 
-#sidebar.active {
-    min-width: 80px;
-    max-width: 80px;
-    text-align: center;
-}
+      #sidebar.active {
+          min-width: 80px;
+          max-width: 80px;
+          text-align: center;
+      }
 
-#sidebar.active .sidebar-header h3,
-#sidebar.active .CTAs {
-    display: none;
-}
+      #sidebar.active .sidebar-header h3,
+      #sidebar.active .CTAs {
+          display: none;
+      }
 
-#sidebar.active .sidebar-header strong {
-    display: block;
-}
+      #sidebar.active .sidebar-header strong {
+          display: block;
+      }
 
-#sidebar ul li a {
-    text-align: left;
-}
+      #sidebar ul li a {
+          text-align: left;
+      }
 
-#sidebar.active ul li a {
-    padding: 20px 10px;
-    text-align: center;
-    font-size: 0.85em;
-}
+      #sidebar.active ul li a {
+          padding: 20px 10px;
+          text-align: center;
+          font-size: 0.85em;
+      }
 
-#sidebar.active ul li a i {
-    margin-right: 0;
-    display: block;
-    font-size: 1.8em;
-    margin-bottom: 5px;
-}
+      #sidebar.active ul li a i {
+          margin-right: 0;
+          display: block;
+          font-size: 1.8em;
+          margin-bottom: 5px;
+      }
 
-#sidebar.active ul ul a {
-    padding: 10px !important;
-}
+      #sidebar.active ul ul a {
+          padding: 10px !important;
+      }
 
-#sidebar.active .dropdown-toggle::after {
-    top: auto;
-    bottom: 10px;
-    right: 50%;
-    -webkit-transform: translateX(50%);
-    -ms-transform: translateX(50%);
-    transform: translateX(50%);
-}
+      #sidebar.active .dropdown-toggle::after {
+          top: auto;
+          bottom: 10px;
+          right: 50%;
+          -webkit-transform: translateX(50%);
+          -ms-transform: translateX(50%);
+          transform: translateX(50%);
+      }
 
-#sidebar .sidebar-header {
-    padding: 20px;
-    background: #3BD16F;
-}
+      #sidebar .sidebar-header {
+          padding: 20px;
+          background: #3BD16F;
+      }
 
-#sidebar .sidebar-header strong {
-    display: none;
-    font-size: 1.8em;
-}
+      #sidebar .sidebar-header strong {
+          display: none;
+          font-size: 1.8em;
+      }
 
-#sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #2f3338;
-}
+      #sidebar ul.components {
+          padding: 20px 0;
+          border-bottom: 1px solid #2f3338;
+      }
 
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 0.9 em;
-    display: block;
-}
+      #sidebar ul li a {
+          padding: 10px;
+          font-size: 0.9 em;
+          display: block;
+      }
 
-#sidebar ul li a:hover {
-    color: #2f3338;
-    background: #fff;
-}
+      #sidebar ul li a:hover {
+          color: #2f3338;
+          background: #fff;
+      }
 
-#sidebar ul li a i {
-    margin-right: 10px;
-}
+      #sidebar ul li a i {
+          margin-right: 10px;
+      }
 
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
-    color: #fff;
-    background: #2f3338;
-}
+      #sidebar ul li.active>a,
+      a[aria-expanded="true"] {
+          color: #fff;
+          background: #2f3338;
+      }
 
-a[data-toggle="collapse"] {
-    position: relative;
-}
+      a[data-toggle="collapse"] {
+          position: relative;
+      }
 
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
+      .dropdown-toggle::after {
+          display: block;
+          position: absolute;
+          top: 50%;
+          right: 20px;
+          transform: translateY(-50%);
+      }
 
-#sidebar ul ul a{
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: #2f3338;
-}
+      #sidebar ul ul a{
+          font-size: 0.9em !important;
+          padding-left: 30px !important;
+          background: #2f3338;
+      }
 
 
-a.article,
-a.article:hover {
-    background: #3BD16F !important;
-    color: #fff !important;
-}
+      a.article,
+      a.article:hover {
+          background: #3BD16F !important;
+          color: #fff !important;
+      }
 
-/* ---------------------------------------------------
-    CONTENT STYLE
------------------------------------------------------ */
+      /* ---------------------------------------------------
+          CONTENT STYLE
+      ----------------------------------------------------- */
 
-#content {
-    width: 100%;
-    padding: 20px;
-    min-height: 100vh;
-    transition: all 0.3s;
-}
+      #content {
+          width: 100%;
+          min-height: 100vh;
+          transition: all 0.3s;
+          background: #f1f1f1;
+      }
+      #mcontent{
+          padding:20px;
+      }
 
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
+      /* ---------------------------------------------------
+          MEDIAQUERIES
+      ----------------------------------------------------- */
 
-@media (max-width: 768px) {
-    #sidebar {
-        min-width: 80px;
-        max-width: 80px;
-        text-align: center;
-        margin-left: -80px !important;
-    }
-    .dropdown-toggle::after {
-        top: auto;
-        bottom: 10px;
-        right: 50%;
-        -webkit-transform: translateX(50%);
-        -ms-transform: translateX(50%);
-        transform: translateX(50%);
-    }
-    #sidebar.active {
-        margin-left: 0 !important;
-    }
-    #sidebar .sidebar-header h3,
-    #sidebar .CTAs {
-        display: none;
-    }
-    #sidebar .sidebar-header strong {
-        display: block;
-    }
-    #sidebar ul li a {
-        padding: 20px 10px;
-    }
-    #sidebar ul li a span {
-        font-size: 0.85em;
-    }
-    #sidebar ul li a i {
-        margin-right: 0;
-        display: block;
-    }
-    #sidebar ul ul a {
-        padding: 10px !important;
-    }
-    #sidebar ul li a i {
-        font-size: 1.3em;
-    }
-    #sidebar {
-        margin-left: 0;
-    }
-    #sidebarCollapse span {
-        display: none;
-    }
-}
-.btn-outline-success{
-    color:#3BD16F;
-}
+      @media (max-width: 768px) {
+          #sidebar {
+              min-width: 80px;
+              max-width: 80px;
+              text-align: center;
+              margin-left: -80px !important;
+          }
+          .dropdown-toggle::after {
+              top: auto;
+              bottom: 10px;
+              right: 50%;
+              -webkit-transform: translateX(50%);
+              -ms-transform: translateX(50%);
+              transform: translateX(50%);
+          }
+          #sidebar.active {
+              margin-left: 0 !important;
+          }
+          #sidebar .sidebar-header h3,
+          #sidebar .CTAs {
+              display: none;
+          }
+          #sidebar .sidebar-header strong {
+              display: block;
+          }
+          #sidebar ul li a {
+              padding: 20px 10px;
+          }
+          #sidebar ul li a span {
+              font-size: 0.85em;
+          }
+          #sidebar ul li a i {
+              margin-right: 0;
+              display: block;
+          }
+          #sidebar ul ul a {
+              padding: 10px !important;
+          }
+          #sidebar ul li a i {
+              font-size: 1.3em;
+          }
+          #sidebar {
+              margin-left: 0;
+          }
+          #sidebarCollapse span {
+              display: none;
+          }
+      }
+      .btn-outline-success{
+          color:#3BD16F;
+      }
 
-    {% block style %}{% endblock %}
-</style>
-<script>
-        {% block script %}{% endblock %}
+      .ques-title h2 {
+          position: relative;
+          margin-bottom: 45px;
+          display: inline-block;
+          font-weight: 600;
+          line-height: 1;
+        }
+        .ques-title h2::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            width: 60px;
+            height: 2px;
+            background: #3BD16F;
+            bottom: -25px;
+            margin-left: -30px;
+        }
+        .ques-title p {
+          padding: 0 190px;
+          margin-bottom: 10px;
+        }
+
+        .ques {
+          background: #FFFFFF;
+          box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.06);
+          border-radius: 4px;
+        }
+
+        .ques .card {
+          border: none;
+          background: none;
+          border-bottom: 1px dashed #CEE1F8;
+        }
+
+        .ques .card .card-header {
+          padding: 0px;
+          border: none;
+          background: none;
+          -webkit-transition: all 0.3s ease 0s;
+          -moz-transition: all 0.3s ease 0s;
+          -o-transition: all 0.3s ease 0s;
+          transition: all 0.3s ease 0s;
+        }
+
+        .ques .card .card-header:hover {
+            background: rgb(30 233 102 / 10%);
+            padding-left: 10px;
+        }
+        .ques .card .card-header .ques-title {
+          width: 100%;
+          text-align: left;
+          padding: 0px;
+          padding-left: 30px;
+          padding-right: 30px;
+          font-weight: 400;
+          font-size: 15px;
+          letter-spacing: 1px;
+          color: #3B566E;
+          text-decoration: none !important;
+          -webkit-transition: all 0.3s ease 0s;
+          -moz-transition: all 0.3s ease 0s;
+          -o-transition: all 0.3s ease 0s;
+          transition: all 0.3s ease 0s;
+          cursor: pointer;
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+
+        .ques .card .card-header .ques-title .badge {
+          display: inline-block;
+          line-height: 14px;
+          float: left;
+          -webkit-border-radius: 100px;
+          -moz-border-radius: 100px;
+          border-radius: 100px;
+          text-align: center;
+          background: #3BD16F;
+          color: #fff;
+          font-size: 12px;
+          margin-right: 20px;
+        }
+
+        .ques .card .card-body {
+          padding: 30px;
+          padding-left: 35px;
+          padding-bottom: 16px;
+          font-weight: 400;
+          font-size: 16px;
+          color: #6F8BA4;
+          line-height: 28px;
+          border-top: 1px solid #F3F8FF;
+        }
+
+        .ques .card .card-body p {
+          margin-bottom: 14px;
+        }
+
+        @media (max-width: 991px) {
+          .ques {
+            margin-bottom: 30px;
+          }
+          .ques .card .card-header .ques-title {
+            line-height: 26px;
+            margin-top: 10px;
+          }
+        }
+        .usrnm{
+          color:#3BD16F;
+        }
+          {% block style %}{% endblock %}
+    </style>
+    <script>
+      {% block script %}{% endblock %}
     </script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="wrapper">
-        <!-- Sidebar  -->
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>QuizAdda</h3>
-                <strong>QA</strong>
-            </div>
-
-            <ul class="list-unstyled components">
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fas fa-home"></i>
-                        Home
-                    </a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                  
-                    <a href="/educator/createquiz">
-                        <i class="fas fa-briefcase"></i>
-                        Create Quiz
-                    </a>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fas fa-copy"></i>
-                        Profile
-                    </a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="/educator/userprofile">Your Profile</a>
-                        </li>
-                        <li>
-                            <a href="/educator/updateprofile">Update Profile</a>
-                        </li>
-                        <li>
-                            <a href="/educator/updatepassword">Update password</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-image"></i>
-                        Portfolio
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-question"></i>
-                        FAQ
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-paper-plane"></i>
-                        Contact
-                    </a>
-                </li>
-            </ul>
-
-        </nav>
-
-        <!-- Page Content  -->
-        <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="btn btn-success">
-                        <i class="fas fa-toggle-on" id="buttontog"></i>
-                        <span></span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link active">Hello, {{user.first_name}} </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/educator/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            {% block content %}{% endblock %}
+      <!-- Sidebar  -->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h3>QuizAdda</h3>
+          <strong>QA</strong>
         </div>
+
+        <ul class="list-unstyled components">
+          <li>
+            <a href="/educator">
+              <i class="fas fa-home"></i>
+              Home
+            </a>
+            <a href="/educator/createquiz">
+              <i class="fas fa-briefcase"></i>
+              Create Quiz
+            </a>
+            <a href="/educator/quizzes">
+              <i class="fas fa-briefcase"></i>
+              All Quizzes
+            </a>
+            <a
+              href="#pageSubmenu"
+              data-bs-toggle="collapse"
+              aria-expanded="false"
+              class="dropdown-toggle"
+            >
+              <i class="fas fa-copy"></i>
+              Profile
+            </a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+              <li>
+                <a href="/educator/userprofile">Your Profile</a>
+              </li>
+              <li>
+                <a href="/educator/updateprofile">Update Profile</a>
+              </li>
+              <li>
+                <a href="/educator/updatepassword">Update password</a>
+              </li>
+            </ul>
+          </li>
+          
+          <li>
+            <a href="/educator/analytics">
+              <i class="fas fa-question"></i>
+              Analytics
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-paper-plane"></i>
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- Page Content  -->
+      <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <button type="button" id="sidebarCollapse" class="btn px-3 py-1 btn-success">
+              <i class="fas fa-toggle-on" id="buttontog"></i>
+              <span></span>
+            </button>
+            <button
+              class="btn btn-dark d-inline-block d-lg-none ms-auto"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-align-justify"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item">
+                  <span class="nav-link active">Hello, <span class="usrnm"> <strong>{{user.first_name}}</strong> </span> </span>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/educator/logout"
+                    ><i class="fas fa-sign-out-alt"></i> Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div id="mcontent">{% block content %}{% endblock %}</div>
+      </div>
     </div>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $('#buttontog').toggleClass('fa-toggle-on fa-toggle-off');
-            });
+      $(document).ready(function () {
+        $("#sidebarCollapse").on("click", function () {
+          $("#sidebar").toggleClass("active");
+          $("#buttontog").toggleClass("fa-toggle-on fa-toggle-off");
         });
+      });
     </script>
-</body>
-
+  </body>
 </html>

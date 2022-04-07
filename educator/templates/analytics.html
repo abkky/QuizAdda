@@ -1,0 +1,50 @@
+{% extends "ebase.html" %}
+{% block title %}Analytics{% endblock %}
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<div class="ques-title text-center py-3">
+    <h2>Analytics</h2>
+    </div>
+  <section class="counts py-2">
+    <nav aria-label="breadcrumb" class="bg-light">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/educator">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Analytics</li>
+        </ol>
+      </nav>
+      {% if numofq != 0 %}
+    <table class="table table-hover table-responsive table-bordered table-light shadow-sm m-2">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">S.no</th>
+            <th scope="col">Quiz Name</th>
+            <th scope="col">No. of Attempts</th>
+            <th scope="col">Response</th>
+            <th scope="col">Created</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for quiz in quizfe %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td><a href="analytics/{{quiz.id}}">{{quiz.quizname}}</a></td>
+            <td>{{quiz.attempts}}</td>
+            <td>{% if quiz.quizstatus is True %} <span class="alert-success">ON </span>{% else %}<span class="alert-warning">OFF </span>{% endif %}</td>
+            <td>{{quiz.creationdate}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="col-md-12">
+        <h2 class="text-center">You haven't created any quiz yet.</h2><br/>
+        <div class="row">
+            <button href="/educator/createquiz" class="btn-success text-center mx-auto" style="width:250px;">Create a Quiz</button>
+        </div>
+    </div>
+      {% endif %}
+  </section>
+{% endblock %}

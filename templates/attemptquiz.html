@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Attempt Quiz{% endblock %}
+{% block style %}
+
+{% endblock %}
+{% block content %}
+
+<section class="loginpage">
+    <div class="container aos-init aos-animate" data-aos="fade-up">
+
+        <header class="section-header pb-0">
+          <p class="my-1">Quiz - {{quiz.quizname}}</p>
+          <h2>{{quiz.quizdesc}}</h2>
+          <span class="educatorinfo">Quiz by - <strong>{{usr.first_name}} {{usr.last_name}} {{ip}}</strong></span>
+          
+          <hr/>
+        </header>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2 col-lg-6 offset-md-3">
+            <div class="card mb-3 m-3">
+                <div class="row">
+                  <div class="col-sm-12 alert bg-success text-light shadow"><h6 class="mb-0">
+                      <span>Your Name- {{res.name}}</span><br/>
+                      <span>Your Email- {{res.email}}</span>
+                    </h6></div>
+                </div>
+                <div class="card-body">  
+                  <form action="" method="POST">  
+                    {% csrf_token %}
+                    {% for question in questions%}
+                    <p class="h5"><strong>{{forloop.counter}}. {{question.question}}</strong></p>
+                    {% if question.numofques >= 2 %}
+                    <div class="form-check ps-5">
+                      <input class="form-check-input" type="radio" name="option{{forloop.counter}}" id="flexRadioDefault{{forloop.counter}}1" value="1" required>
+                      <label class="form-check-label" for="flexRadioDefault{{forloop.counter}}1">
+                        {{question.option1}}
+                      </label>
+                    </div>
+                    <div class="form-check ps-5">
+                      <input class="form-check-input" type="radio" name="option{{forloop.counter}}" id="flexRadioDefault{{forloop.counter}}2" value="2" required>
+                      <label class="form-check-label" for="flexRadioDefault{{forloop.counter}}2">
+                        {{question.option2}}
+                      </label>
+                    </div>
+                    {% endif %}
+                    {% if question.numofques >= 3 %}
+                    <div class="form-check ps-5">
+                      <input class="form-check-input" type="radio" name="option{{forloop.counter}}" id="flexRadioDefault{{forloop.counter}}3" value="3" required>
+                      <label class="form-check-label" for="flexRadioDefault{{forloop.counter}}3">
+                        {{question.option3}}
+                      </label>
+                    </div>
+                    {% endif %}
+                    {% if question.numofques >= 4 %}
+                    <div class="form-check ps-5">
+                      <input class="form-check-input" type="radio" name="option{{forloop.counter}}" id="flexRadioDefault{{forloop.counter}}4" value="4" required>
+                      <label class="form-check-label" for="flexRadioDefault{{forloop.counter}}4">
+                        {{question.option4}}
+                      </label>
+                    </div>
+                    {% endif %}
+                    {% if question.numofques >= 5 %}
+                    <div class="form-check ps-5">
+                      <input class="form-check-input" type="radio" name="option{{forloop.counter}}" id="flexRadioDefault{{forloop.counter}}5" value="5" required>
+                      <label class="form-check-label" for="flexRadioDefault{{forloop.counter}}5">
+                        {{question.option5}}
+                      </label>
+                    </div>
+                    {% endif %}
+                      <hr />
+                    {% endfor %}
+                      <input type="submit" value="Submit Quiz" class="btn btn-success"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

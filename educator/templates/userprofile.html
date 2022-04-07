@@ -1,39 +1,56 @@
-{% extends "ebase.html" %}
-{% block title %}User Profile{% endblock %}
-{% block style %}
-button {
-  display: inline-block;
-  padding: 10px 24px;
-  background: rgb(220,220,220);
-  font-weight: bold;
-  color: rgb(120,120,120);
-  border: none;
-  outline: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: ease .3s;
-}
-
-button:hover {
-  background: #8BC34A;
-  color: #ffffff;
-}
-.update{
-    border:3px solid black;
-    padding:10px;
-    width:500px;
-}
-{% endblock %}
-
-{% block content %}
-<center>
-  <div class="update"><br>
-  <h1>hi,{{user.username}} your profile</h1>
-   Your First-Name:{{user.first_name}}<br>
-   Your Last-Name:{{user.last_name}}<br>
-   Your Email:{{user.email}}<br>
+{% extends "ebase.html" %} {% block title %}User Profile{% endblock %} 
+{% block style %} {% endblock %} {% block content %}
+<div class="col-md-10 offset-md-1">
+  <div class="ques-title text-center pb-3">
+    <h2 class="mb-2">Your Profile</h2>
+  </div>
 </div>
-
-
-   </center>
+<div class="viewall">
+<div class="card mb-3 m-3">
+  <div class="row">
+    <div class="col-sm-12 alert bg-success text-light shadow"><h6 class="mb-0">Basic Info</h6></div>
+  </div>
+  <div class="card-body">
+    
+    
+    <div class="row">
+      <div class="col-sm-3"><h6 class="mb-0">First Name</h6></div>
+      <div class="col-sm-9 text-secondary"><strong>{{user.first_name}}</strong></div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-sm-3"><h6 class="mb-0">Last Name</h6></div>
+      <div class="col-sm-9 text-secondary"><strong>{{user.last_name}}</strong></div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-sm-3"><h6 class="mb-0">Username</h6></div>
+      <div class="col-sm-9 text-secondary"><strong>{{user.username}}</strong></div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-sm-3"><h6 class="mb-0">Email</h6></div>
+      <div class="col-sm-9 text-secondary"><strong>{{user.email}}</strong></div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-sm-3"><h6 class="mb-0">Joined</h6></div>
+      <div class="col-sm-9 text-secondary"><strong>{{user.date_joined}}</strong></div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-sm-3"><h6 class="mb-0">Last Login</h6></div>
+      <div class="col-sm-9 text-secondary"><strong>{{user.last_login}}</strong></div>
+    </div>
+  </div>
+</div>
+</br><div class="card mb-3 m-3">
+  <div class="row">
+    <div class="col-sm-12 alert bg-success text-light shadow"><h6 class="mb-0">Additional Info</h6></div>
+  </div>
+  <div class="card-body">    
+    No additional data available
+  </div>
+</div>
+</div>
 {% endblock %}

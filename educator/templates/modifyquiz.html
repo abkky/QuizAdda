@@ -1,0 +1,23 @@
+{% extends "ebase.html" %} {% block title %}Modify Quiz{% endblock %} 
+{% block  style %}
+select.form-control:not([size]):not([multiple]){
+  height:auto;
+} {% endblock %} {% block content %}
+<h2 class="text-center">Modify Quiz - {{quiz.quizname}}</h2>
+<form action="updatequiz" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="quizidfe" value="{{quiz.id}}"/>
+  <label for="quizname">Quiz name</label>
+<input type="text" class="form-control" name="quizname" value="{{quiz.quizname}}" placeholder="Enter name for your Quiz" required/>
+<label for="quizname">Quiz Description</label>
+<input type="text" class="form-control" name="quizdesc" value="{{quiz.quizdesc}}" placeholder="What this quiz about" required/>
+<label for="quizname">Response</label>
+<select class="form-control" name="status" required="required">
+  <option value="none" selected="" disabled="" hidden="">--Select--</option>
+  <option {% if quiz.quizstatus is True %} selected {% endif %}>Accepting</option>
+  <option {%  if quiz.quizstatus is False %}selected{% endif %}>Not Accepting</option>
+</select>
+<br/>
+<input type="submit" class="btn btn-success" value="Update"/>
+</form>
+{% endblock %}

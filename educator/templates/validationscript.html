@@ -1,0 +1,51 @@
+<script>
+$("#id_username").keyup(function () {
+      let username = $(this).val();
+      let csr=$("input[name='csrfmiddlewaretoken']").val();
+        mydata={"username":username,csrfmiddlewaretoken:csr};
+      $.ajax({
+        url:"{% url 'validateusername' %}",
+        method:"POST",
+        data:mydata,
+        success: function (data) {
+          if(data.status==0){
+            $('#msgjs').html(' <h6 class="alert-danger" id="errormsg" style="padding-left:5px;">Username not available</h6>');
+          }
+          else{
+            $('#msgjs').html(' <h6 class="alert-success" id="errormsg" style="padding-left:5px;">Username available</h6>');
+          }
+        }
+      });
+
+    });
+    $("#id_email").keyup(function () {
+      let email = $(this).val();
+      let csr=$("input[name='csrfmiddlewaretoken']").val();
+        mydata={"email":email,csrfmiddlewaretoken:csr};
+      $.ajax({
+        url:"{% url 'validateemail' %}",
+        method:"POST",
+        data:mydata,
+        success: function (data) {
+          if(data.status==0){
+            $('#msgjse').html(' <h6 class="alert-danger" id="errormsg" style="padding-left:5px;">Email already exist</h6>');
+          }
+          else{
+            $('#msgjse').empty();
+          }
+        }
+      });
+
+    });
+    $("#submitpass").click(function () {
+          console.log("Clicked")
+            var password = $("#txtPassword").val();
+            var confirmPassword = $("#txtConfirmPassword").val();
+            if (password != confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+        });
+
+</script>

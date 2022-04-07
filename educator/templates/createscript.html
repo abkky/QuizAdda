@@ -1,0 +1,59 @@
+<script>
+    // $("#finish-btn").click(function(){
+    //   let quizidfe = $("#quizidfe").val();
+    //   let csr=$("input[name='csrfmiddlewaretoken']").val();
+    //   mydata ={quizidfe:quizidfe,csrfmiddlewaretoken:csr};
+    //   $.ajax({
+    //     url:"{% url 'publishquiz' %}",
+    //     method:"POST",
+    //     data:mydata,
+    //     success: function (data) {
+    //       alert(data.status);
+    //       window.location.href = "/educator"
+    //     }
+    //   });
+    // });
+    $("#numofquestion").change(function () {
+      var value = +$(this).val();
+      if (value > 1) {
+        var nr = 1;
+        var elem = $("#numofoptions").empty();
+        var elem1 = $("#correctoption").empty();
+        elem.append($("<label>Enter Options</label>"));
+        elem1.append($("<label>Choose Correct option</label>"));
+        elem1.append($("<br/>"));
+        while (nr <= value) {
+          elem.append(
+            $("<input>", {
+              name: "ov" + nr,
+              id: "ov" + nr,
+              class: "form-control",
+              placeholder: "Enter option " + nr,
+            })
+          );
+          elem.append($("<br/>"));
+          elem1.append($("<input>", { name: "co", id: "co" + nr, value: nr }));
+          elem1.append($(" <label>", { id: "checko" + nr, for: "co" + nr }));
+          elem1.append($('<p style="display:inline">  </p> '));
+          y = "#checko" + nr;
+          opname = "Option " + nr;
+          $(y).html(opname);
+          x = "#ov" + nr;
+          y = "#co" + nr;
+          $(x).prop("type", "text");
+          $(x).attr("required", "true");
+          $(y).prop("type", "radio");
+          $(y).attr("required", "true");
+          nr++;
+        }
+      }
+    });
+  function validateForm(){
+    
+    var agree=confirm("Are you sure??");
+    if (agree)
+      return true ;
+    else
+      return false ;
+  }
+  </script>

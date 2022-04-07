@@ -1,52 +1,25 @@
-{% extends "ebase.html" %}
-{% block title %}Create Quiz{% endblock %}
-{% block style %}
+{% extends "ebase.html" %} {% block title %}Create Quiz{% endblock %} 
+{% block  style %} {% endblock %} {% block content %}
+<div class="col-md-10 offset-md-1">
+  <div class="ques-title text-center pb-3">
+    <h2 class="mb-2">Create Quiz</h2>
+  </div>
+</div>
+<div class="card mb-3 py-3 px-3 m-3 shadow-sm">
+  
+  <div class="card-body">    
+    <form action="createquiz" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="userid" value="{{user.id}}"/>
+      <label for="quizname">Quiz name</label>
+    <input type="text" class="form-control" name="quizname" placeholder="Enter name for your Quiz" required/><br/>
+    <label for="quizname">Quiz Description</label>
+    <input type="text" class="form-control" name="quizdesc" placeholder="What this quiz about" required/>
+    <br/>
+    <input type="submit" class="btn btn-success" value="Create Quiz"/>
+    </form>
+  </div>
+</div>
 
-{% endblock %}
-
-{% block content %}
-<h2 class="text-center">Create Quiz</h2>
-<form action="createquiz" method="POST">
-    <div class="form-group">
-    <label for="exampleInputEmail1">Enter Your Question</label>
-    <input type="text" class="form-control" placeholder="Enter Your name" name="question">
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlSelect1">Select No.of option</label>
-        <select class="form-control" id="numofquestion">
-          <option>--Select--</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-    </div>
-    <div id="numofoptions">
-
-    </div><br/>
-    <div id="correctoption">
-      
-    </div>
-</form>
-<script>
-  $("#numofquestion").change(function() {
-  var value = +$(this).val();
-  if(value>1){
-      var nr = 1;
-    var elem = $('#numofoptions').empty();
-    var elem1 = $('#correctoption').empty();
-      elem.append($('<label>Enter Options</label>'));
-      elem1.append($('<label>Choose Correct option</label>'));
-    while (nr <= value) {
-      elem.append($('<input>',{name : "ov"+nr,id : "ov"+nr,class:"form-control",placeholder:"Enter option "+nr}));
-      elem.append($('<input>',{name : "co"+nr,id : "co"+nr,class:"form-check-input"}));
-      elem.append($('<br/>'));
-      x="#ov"+nr;
-      x="#co"+nr;
-      $(x).prop('type', 'text');
-      $(x).prop('type', 'radio');
-      nr++;
-    }}
-});
-</script>
+{% include "createscript.html"%}
 {% endblock %}

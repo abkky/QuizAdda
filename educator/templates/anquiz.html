@@ -1,0 +1,49 @@
+{% extends "ebase.html" %}
+{% block title %}Quiz Analytics{% endblock %}
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<div class="ques-title text-center py-3">
+    <h2>Responses- {{quiz.quizname}}</h2>
+    </div>
+  <section class="counts py-2">
+      <div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/educator">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="/educator/analytics">Analytics</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{quiz.quizname}}</li>
+        </ol>
+      </nav></div>
+    {% if numofr != 0 %}
+    <table class="table table-hover table-responsive table-bordered table-light shadow-sm m-2">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">S.no</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Score/Total</th>
+            <th scope="col">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for res in rees %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td><a href="{{quiz.id}}/{{res.id}}">{{res.name}}</a></td>
+            <td>{{res.email}}</td>
+            <td><strong>{{res.score}}</strong> / {{numofq}}</td>
+            <td>{{res.subtime}} {{res.subdate}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="col-md-12">
+        <h2 class="text-center">No responses found.</h2><br/>
+    </div>
+      {% endif %}
+  </section>
+{% endblock %}

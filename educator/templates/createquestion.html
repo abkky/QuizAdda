@@ -1,0 +1,83 @@
+{% extends "ebase.html" %} {% block title %}Add Questions{% endblock %} 
+{% block  style %} {% endblock %} {% block content %}
+<div class="ques-title text-center pb-3">
+<h2>Add Question for quiz- {{quiz.quizname}}</h2>
+</div>
+<div class="card mb-3 py-3 px-3 m-3 shadow-sm">
+  <div class="card-body">    
+    <form action="createquestion" method="POST" id="addques">
+      {% csrf_token %}
+      <input type="hidden" id="quizidfe" name="quizidfe" value="{{id}}"/>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Enter Your Question </label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Your name"
+          name="question"
+          id="question"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="numofquestion">Select No.of option</label>
+        <select class="form-control" id="numofquestion" name="numofquestion" required="required">
+          <option value="none" selected disabled hidden>--Select--</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+      <div id="numofoptions"></div>
+      <br />
+      <div id="correctoption"></div>
+      <input type="submit" name="save" value="Save" class="btn btn-warning" id="btnsave">
+      <a href="/educator/quizzes" class="btn float-end btn-success">Finish</a>
+    </form>
+  </div>
+</div>
+
+  <div class="col-md-10 offset-md-1">
+    <div class="ques" id="accordion">
+         {% for quesall in quizquesall %}  
+         {% load mathfilters %}
+        <div class="card">
+            <div class="card-header" id="quesHeading-1">
+                <div class="mb-0">
+                    <h5 class="ques-title" data-bs-toggle="collapse" data-bs-target="#quesCollapse-{{forloop.counter}}" aria-expanded="true" aria-controls="quesCollapse-{{forloop.counter}}">
+                        <span class="badge">Q.{{quesnums | sub:forloop.counter|add:"1"}}</span>{{quesall.question}}
+
+                    </h5>
+                </div>
+            </div>
+            <div id="quesCollapse-{{forloop.counter}}" class="collapse" aria-labelledby="quesHeading-{{forloop.counter}}" data-parent="#accordion">
+                <div class="card-body">
+                  <ul></ul>
+                  
+                  {% if quesall.numofques >= 2 %}
+                  
+                    <li><span class="{% if quesall.correctoption == 1 %}alert-success{%endif%}">{{quesall.option1}} {% if quesall.correctoption == 1 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                    <li><span class="{% if quesall.correctoption == 2 %}alert-success{%endif%}">{{quesall.option2}} {% if quesall.correctoption == 2 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                  {% endif %}
+                  {% if quesall.numofques >= 3 %}
+                    <li><span class="{% if quesall.correctoption == 3 %}alert-success{%endif%}">{{quesall.option3}} {% if quesall.correctoption == 3 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                  {% endif %}
+                  {% if quesall.numofques >= 4 %}
+                    <li><span class="{% if quesall.correctoption == 4 %}alert-success{%endif%}">{{quesall.option4}} {% if quesall.correctoption == 4 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                  {% endif %}
+                  {% if quesall.numofques == 5 %}
+                    <li><span class="{% if quesall.correctoption == 5 %}alert-success{%endif%}">{{quesall.option5}} {% if quesall.correctoption == 5 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                  {% endif %}
+
+                  </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor%}
+       
+
+    </div>
+</div>
+{% include "createscript.html"%}
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "ebase.html" %}
+{% block title %}User's Quiz Analytics{% endblock %}
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<div class="ques-title text-center py-3">
+    <h2>User - {{res.name}}</h2>
+    </div>
+  <section class="counts py-2">
+      <div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/educator">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="/educator/analytics">Analytics</a></li>
+          <li class="breadcrumb-item"><a href="/educator/analytics/{{quiz.id}}">{{quiz.quizname}}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{res.email}} {{answers.1.id}}</li>
+        </ol>
+      </nav></div>
+      
+   
+      <div class="col-md-10 offset-md-1 pb-5">
+          <div class="ques" id="accordion">
+               {% for quesall in questions %}  
+               {% load mathfilters %}
+              <div class="card">
+                  <div class="card-header" id="quesHeading-1">
+                      <div class="mb-0">
+                          <h5 class="ques-title" data-bs-toggle="collapse" data-bs-target="#quesCollapse-{{forloop.counter}}" aria-expanded="true" aria-controls="quesCollapse-{{forloop.counter}}">
+                              <span class="badge">Q.{{forloop.counter}}</span>{{quesall.question}}
+      
+                          </h5>
+                      </div>
+                  </div>
+                  <div id="quesCollapse-{{forloop.counter}}" class="collapse show"  aria-labelledby="quesHeading-{{forloop.counter}}" data-parent="#accordion">
+                      <div class="card-body">
+   
+                        <ul>
+                        
+                        {% if quesall.numofques >= 2 %}
+                        
+                          <li><span class="{% if quesall.correctoption == 1 %}alert-success{%endif%}">{{quesall.option1}} {% if quesall.correctoption == 1 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                          <li><span class="{% if quesall.correctoption == 2 %}alert-success{%endif%}">{{quesall.option2}} {% if quesall.correctoption == 2 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                        {% endif %}
+                        {% if quesall.numofques >= 3 %}
+                          <li><span class="{% if quesall.correctoption == 3 %}alert-success{%endif%}">{{quesall.option3}} {% if quesall.correctoption == 3 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                        {% endif %}
+                        {% if quesall.numofques >= 4 %}
+                          <li><span class="{% if quesall.correctoption == 4 %}alert-success{%endif%}">{{quesall.option4}} {% if quesall.correctoption == 4 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                        {% endif %}
+                        {% if quesall.numofques == 5 %}
+                          <li><span class="{% if quesall.correctoption == 5 %}alert-success{%endif%}">{{quesall.option5}} {% if quesall.correctoption == 5 %}<i class="fa fa-check" aria-hidden="true"></i>{%endif%}</span></li>
+                        {% endif %}
+                        <hr/>
+                        <span>Correct option:</span>
+      
+                        </ul>
+                      </div>
+                  </div>
+              </div>
+              {% endfor%}
+
+          </div>
+      </div>
+  </section>
+{% endblock %}
