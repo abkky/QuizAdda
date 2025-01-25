@@ -7,6 +7,9 @@
 {% block content %}
 <div class="ques-title text-center pb-3">
     <h2>Quiz - <strong>{{fequizdet.quizname}}</strong></h2>
+    <p>Quiz id - <span id="clipboard">{{quizid}}</span></p>
+    <button id="cpBtn" class="btn btn-success" onclick="copyText()">Copy Link</button>
+
 </div>
 <div class="col-md-10 offset-md-1 pb-5">
   {% if numofques != 0 %}  
@@ -82,6 +85,18 @@
                     </div>
                             {% endif %}
 </div>
+<script>
+  function copyText() {
+
+      /* Select text area by id*/
+      var Text = document.getElementById("clipboard");
+
+      navigator.clipboard.writeText("http://127.0.0.1:8000/joinquiz/"+Text.textContent);
+
+      document.getElementById("cpBtn")
+          .innerHTML = "Link Copied";
+  }
+</script>
 {% include "createscript.html"%}
 
 {% endblock %}
